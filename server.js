@@ -26,9 +26,15 @@ app.get("/api/hello", function (req, res) {
 
 
 app.get("/api/whoami", function (req, res) {
-  console.log(req.headers);
-  res.send(JSON.stringify(req.headers));
+  let ip = req.headers['x-forwarded-for'];
+  ip = ip.slice(0, ip.search(','));
+  let text = '{"ipaddress":"' + ip;
+  text += '","language":"' + req.headers['accept-language'];
+  text += '","software":"' + req.headers['user-agent'] + '"}';
+  res.send(text);
 });
+//{"ipaddress":"159.20.14.100","language":"en-US,en;q=0.5","software":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0"}
+
 
 
 // listen for requests :)
