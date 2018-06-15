@@ -25,6 +25,11 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+app.get("/api/whoami", function (req, res) {
+  console.log(req.headers);
+  res.send(JSON.stringify(req.headers));
+});
+
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
